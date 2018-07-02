@@ -1,0 +1,98 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block title %}
+    Block {{ player.round_number }}
+{% endblock %}
+
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'mist_task/mist.css' %}">
+{% endblock %}
+
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'mist_task/mist.js' %}"></script>   
+
+    <script type="text/javascript">
+        // SETTINGS
+        var currentDifficulty = {{ player.block_difficulty|json }};
+        var adjust_iti = {{ subsession.adjust_iti|json }};
+        var iti_reference = {{ iti_reference|json }};
+
+        var enforce_time = {{ subsession.enforce_time|json }};
+
+        var currentTimeout = 10000; // in miliseconds
+        var adjustment_factor_down = 0.9; // 90%
+        var adjustment_factor_up = 1.1; // 110%
+        var next_task_delay = 500; // in miliseconds
+
+        var correctInput = "#id_block_correct";
+        var workedOnInput = "#id_block_num_worked_on";
+        var avgResponseTimeInput = "#id_block_avg_response_time";
+
+
+        $( document ).ready( function() {
+            visualize();
+            resetCalc();
+        });
+
+
+        $(document).on('timeout', function (e) {
+            inputAllowed = false;
+            hitlist.push([currentDifficulty, currentTimeout, currentCalc, eval(currentCalc), 0, -1]); // responsetime = -1 -> no reply
+            handleTime();
+            $('#bar1val').css('background-color', 'orangered');
+            adjust_task_delay();
+            resetCalc();
+        });
+
+
+        $(document).keydown(function(e) {
+            switch (e.which) {
+                case 37: // left
+                    rotate('left');
+                    break;
+                case 39: // right
+                    rotate('right');
+                    break;
+                case 40: // down
+                    if (inputAllowed) { solve(currentNumbers[2]); } 
+                    break;
+            }
+        });
+    </script> 
+{% endblock %}
+
+
+{% block content %}
+    {{ subsession.kind }}<br/>
+    {{ player.block_difficulty }}<br/>
+
+    training: {{ group.training_order }}<br/>
+    control: {{ group.control_order }}<br/>
+    treatment: {{ group.treatment_order }}<br/>
+
+    {% formfield player.block_correct %}
+    {% formfield player.block_num_worked_on %}
+    {% formfield player.block_avg_response_time %}
+
+
+    <div id="calcBox">
+        <h3>Task</h3>
+        <div class="progressbar" id="bar1">
+            <span id='bar1val' style="width: 100%"></span>
+        </div>
+        <div id='mBox'>
+            <span class="half" id="calculation"></span><span class="half" id="dial">
+                <span class="arrow"><</span> <span id="minus2"></span> <span id="minus1"></span> <span id="cur"></span> <span id="plus1"></span> <span id="plus2"></span> <span class="arrow">></span>
+            </span>
+        </div>
+    </div>
+
+
+    {% next_button %}
+    
+
+{% endblock %}

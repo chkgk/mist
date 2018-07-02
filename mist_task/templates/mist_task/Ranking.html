@@ -1,0 +1,27 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Ranking {{ player.round_number }}
+{% endblock %}
+
+{% block content %}
+    
+    <p>You solved {{ own_performance }} tasks correctly. Your rank is {{ own_rank }}.</p>
+
+    <table class="table-striped">
+        <tr>
+            <th>Rank</td>
+            <th>Correct Calculations</td>
+        </tr>
+        {% for i, perf in performances %}
+        <tr>
+            <td>{{ i }}</td>
+            <td>{{ perf }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% next_button %}
+
+{% endblock %}

@@ -1,0 +1,86 @@
+body {
+	font-family: sans-serif;	
+}
+
+.progressbar {
+	width: 100%;
+	height: 20px;
+	border: 1px solid #000;
+	text-align: right;
+}	
+
+.progressbar span {
+	display: inline-block;
+	height: 100%;
+	background-color: lightblue;
+}	
+
+#mBox {
+	width: 100%;
+	height: 40px;
+}
+
+#calcBox {
+	width: 400px;
+	background-color: rgba(255,255,255,0.7);
+	padding-top: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	border-radius: 5px;
+	border: 1px solid black;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#resultBox {
+	display: inline-block;
+}
+
+#calculation {			
+	font-family: Courier New;
+	line-height: 40px;
+}
+
+.half {
+	width: 50%;
+	display: inline-block;
+}
+
+
+.self {
+	font-weight: bold;
+	color: #01A9DB;
+}
+
+#dial {
+	text-align: center;
+	font-family: Courier New;
+	font-weight: bold;
+	border-bottom: 1px solid #000;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	height: 29px;
+}
+#cur {
+	font-size: x-large;
+	border-left: 1px solid #555;
+	border-right: 1px solid #555;
+	padding-left: 7px;
+	padding-right: 7px;
+	padding-bottom: 0px;
+	padding-top: 2px;
+	color: orangered;
+}
+#plus1, #minus1 {
+	font-size: medium;
+}
+
+#plus2, #minus2 {
+	font-size: small;
+}
+
+.arrow {
+	font-size: small;
+	font-weight: normal;
+}

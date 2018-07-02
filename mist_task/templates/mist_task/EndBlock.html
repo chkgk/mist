@@ -1,0 +1,20 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    End of Block {{ player.round_number }}
+{% endblock %}
+
+{% block content %}
+    {% if player.round_number == 5 or player.round_number == 10 %}
+        <p>{{ subsession.kind }} is over. Prepare for next 5 blocks.</p>
+    {% elif player.round_number == 15 %}
+        <p>{{ subsession.kind }} is over.</p>
+    {% else %}
+        <p>Prepare for next block!</p>
+    {% endif %}
+
+    {% next_button %}
+    
+
+{% endblock %}
